@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><link rel="stylesheet" href="style.css"/><title>Camping, Book: Getting Started</title><link rel="icon" href="badge.gif"/><meta name="viewport" content="width=695"/></head><body><header id="top"><h1 class="fill" id="">Book: Getting Started</h1><h1 class="outline" id="Book-Getting-Started">Book: Getting Started</h1></header><div id="wrapper"><ul class="aside" id="nav"><li><a href="index.html">Home</a></li><li><a href="The-Camping-Book">Camping Book</a></li><li><a href="http://camping.rubyforge.org/api.html">Reference</a></li><li><a href="http://log.whywentcamping.com/">Tumblog</a></li></ul><div id="subwrap"><p>Start a new text file called nuts.rb. Here’s what you put inside:</p>
+
+<blockquote>
+<pre><span class="constant">Camping</span><span class="punct">.</span><span class="ident">goes</span> <span class="symbol">:Nuts</span></pre>
+</blockquote>
+
+
+<p>Save it. Then, open a command prompt in the same directory. You’ll want to run:</p>
+
+<pre><code>camping nuts.rb
+</code></pre>
+
+<p>And you should get a message which reads:</p>
+
+<pre><code>** Camping running on 0.0.0.0:3301.
+</code></pre>
+
+<p>This means that right now The Camping Server is running on port 3301 on your machine. Open your browser and visit http://localhost:3301/.</p>
+
+<p>Your browser window should show:</p>
+
+<pre><code>Camping Problem!
+
+/ Not found
+</code></pre>
+
+<p>No problem with that. The Camping Server is running, but it doesn’t know what to show. Let’s tell him.</p>
+
+<h2 class=fill>Hello clock</h2>
+<h2 class=outline id="Hello-clock">Hello clock</h2>
+
+<p>So, you’ve got Camping installed and it’s running. Keep it running. You can edit files and The Camping Server will reload automatically. When you need to stop the server, press Control-C.</p>
+
+<p>Let’s show something. At the bottom of nuts.rb add:</p>
+
+<blockquote>
+<pre><span class="keyword">module </span><span class="module">Nuts::Controllers</span>
+  <span class="keyword">class </span><span class="class">Index</span> <span class="punct">&lt;</span> <span class="constant">R</span> <span class="punct">'</span><span class="string">/</span><span class="punct">'</span>
+    <span class="keyword">def </span><span class="method">get</span>
+      <span class="constant">Time</span><span class="punct">.</span><span class="ident">now</span><span class="punct">.</span><span class="ident">to_s</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<p>Save the file and refresh the browser window. Your browser window should show the time, e.g.</p>
+
+<pre><code>Sun Jul 15 12:56:15 +0200 2007
+</code></pre>
+
+<h2 class=fill>Enjoying the view</h2>
+<h2 class=outline id="Enjoying-the-view">Enjoying the view</h2>
+
+<p>The Camping microframework allows us to separate our code using the MVC (Model-View-Controller) design pattern. Let’s add a view to our Nuts application. Replace the module Nuts::Controllers with:</p>
+
+<blockquote>
+<pre><span class="keyword">module </span><span class="module">Nuts::Controllers</span>
+  <span class="keyword">class </span><span class="class">Index</span> <span class="punct">&lt;</span> <span class="constant">R</span> <span class="punct">'</span><span class="string">/</span><span class="punct">'</span>
+    <span class="keyword">def </span><span class="method">get</span>
+      <span class="attribute">@time</span> <span class="punct">=</span> <span class="constant">Time</span><span class="punct">.</span><span class="ident">now</span>
+      <span class="ident">render</span> <span class="symbol">:sundial</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">module </span><span class="module">Nuts::Views</span>
+  <span class="keyword">def </span><span class="method">layout</span>
+    <span class="ident">html</span> <span class="keyword">do</span>
+      <span class="ident">head</span> <span class="keyword">do</span>
+        <span class="ident">title</span> <span class="punct">{</span> <span class="punct">&quot;</span><span class="string">Nuts And GORP</span><span class="punct">&quot;</span> <span class="punct">}</span>
+      <span class="keyword">end</span>
+      <span class="ident">body</span> <span class="punct">{</span> <span class="constant">self</span> <span class="punct">&lt;&lt;</span> <span class="keyword">yield</span> <span class="punct">}</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+  
+  <span class="keyword">def </span><span class="method">sundial</span>
+    <span class="ident">p</span> <span class="punct">&quot;</span><span class="string">The current time is: <span class="expr">#{@time}</span></span><span class="punct">&quot;</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<p>Save the file and refresh your browser window and it should show a message like:</p>
+
+<pre><code>The current time is: Sun Jul 15 13:05:41 +0200 2007
+</code></pre>
+
+<p>And the window title reads "Nuts And GORP".</p>
+
+<p>Here you can see we call <code>render :sundial</code> from our controller. This does exactly what it says, and renders our <code>sundial</code> method. We’ve also added a special method called <code>layout</code> which Camping will automatically wrap our sundial output in. If you’re familiar with HTML, you'll see that our view contains what looks HTML tag names. This is <a href="http://markaby.rubyforge.org/">Markaby</a>, which is like writing HTML using Ruby!</p>
+
+<p>Soon enough, you’ll find that you can return anything from the controller, and it will be sent to the browser. But let’s keep that for later and start investigating the routes.</p>
+
+<h2 class=fill>Routes</h2>
+<h2 class=outline id="Routes">Routes</h2>
+
+<p>You probably noticed the weird <code>R '/'</code> syntax in the previous page. This is an uncommon feature of Ruby that is used in our favorite microframework, to describe the routes which the controller can be accessed on.</p>
+
+<p>These routes can be very powerful, but we’re going to have look at the simplest ones first.</p>
+
+<blockquote>
+<pre><span class="keyword">module </span><span class="module">Nuts::Controllers</span>
+  <span class="keyword">class </span><span class="class">Words</span> <span class="punct">&lt;</span> <span class="constant">R</span> <span class="punct">'</span><span class="string">/welcome/to/my/site</span><span class="punct">'</span>
+    <span class="keyword">def </span><span class="method">get</span>
+      <span class="punct">&quot;</span><span class="string">You got here by: /welcome/to/my/site</span><span class="punct">&quot;</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+  
+  <span class="keyword">class </span><span class="class">Digits</span> <span class="punct">&lt;</span> <span class="constant">R</span> <span class="punct">'</span><span class="string">/nuts/(\d+)</span><span class="punct">'</span>
+    <span class="keyword">def </span><span class="method">get</span><span class="punct">(</span><span class="ident">number</span><span class="punct">)</span>
+      <span class="punct">&quot;</span><span class="string">You got here by: /nuts/<span class="expr">#{number}</span></span><span class="punct">&quot;</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+  
+  <span class="keyword">class </span><span class="class">Segment</span> <span class="punct">&lt;</span> <span class="constant">R</span> <span class="punct">'</span><span class="string">/gorp/([^/]+)</span><span class="punct">'</span>
+    <span class="keyword">def </span><span class="method">get</span><span class="punct">(</span><span class="ident">everything_else_than_a_slash</span><span class="punct">)</span>
+      <span class="punct">&quot;</span><span class="string">You got here by: /gorp/<span class="expr">#{everything_else_than_a_slash}</span></span><span class="punct">&quot;</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+  
+  <span class="keyword">class </span><span class="class">DigitsAndEverything</span> <span class="punct">&lt;</span> <span class="constant">R</span> <span class="punct">'</span><span class="string">/nuts/(\d+)/([^/]+)</span><span class="punct">'</span>
+    <span class="keyword">def </span><span class="method">get</span><span class="punct">(</span><span class="ident">number</span><span class="punct">,</span> <span class="ident">everything</span><span class="punct">)</span>
+      <span class="punct">&quot;</span><span class="string">You got here by: /nuts/<span class="expr">#{number}</span>/<span class="expr">#{everything}</span></span><span class="punct">&quot;</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<p>Add this to nuts.rb and try if you can hit all of the controllers.</p>
+
+<p>Also notice how everything inside a parenthesis gets passed into the method, and is ready at your disposal.</p>
+
+<h3 class=fill>Simpler routes</h3>
+<h3 class=outline id="Simpler-routes">Simpler routes</h3>
+
+<p>This just in:</p>
+
+<blockquote>
+<pre><span class="keyword">module </span><span class="module">Nuts::Controllers</span>
+  <span class="keyword">class </span><span class="class">Index</span>
+    <span class="keyword">def </span><span class="method">get</span>
+      <span class="punct">&quot;</span><span class="string">You got here by: /</span><span class="punct">&quot;</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+  
+  <span class="keyword">class </span><span class="class">WelcomeToMySite</span>
+    <span class="keyword">def </span><span class="method">get</span>
+      <span class="punct">&quot;</span><span class="string">You got here by: /welcome/to/my/site</span><span class="punct">&quot;</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+  
+  <span class="keyword">class </span><span class="class">NutsN</span>
+    <span class="keyword">def </span><span class="method">get</span><span class="punct">(</span><span class="ident">number</span><span class="punct">)</span>
+      <span class="punct">&quot;</span><span class="string">You got here by: /nuts/<span class="expr">#{number}</span></span><span class="punct">&quot;</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+  
+  <span class="keyword">class </span><span class="class">GorpX</span>
+    <span class="keyword">def </span><span class="method">get</span><span class="punct">(</span><span class="ident">everything_else_than_a_slash</span><span class="punct">)</span>
+      <span class="punct">&quot;</span><span class="string">You got here by: /gorp/<span class="expr">#{everything_else_than_a_slash}</span></span><span class="punct">&quot;</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+  
+  <span class="keyword">class </span><span class="class">NutsNX</span>
+    <span class="keyword">def </span><span class="method">get</span><span class="punct">(</span><span class="ident">number</span><span class="punct">,</span> <span class="ident">everything</span><span class="punct">)</span>
+      <span class="punct">&quot;</span><span class="string">You got here by: /nuts/<span class="expr">#{number}</span>/<span class="expr">#{everything}</span></span><span class="punct">&quot;</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<p>Drop the <code>&lt; R</code>-part and it attemps to read your mind. It won’t always succeed, but it can simplify your application once in a while.</p>
+
+<h2 class=fill>Modeling the world</h2>
+<h2 class=outline id="Modeling-the-world">Modeling the world</h2>
+
+<p>You can get pretty far with what you’ve learned now, and hopefully you’ve been playing a bit off-book, but it’s time to take the next step: Storing data.</p>
+
+<p>Let’s start over again.</p>
+
+<blockquote>
+<pre><span class="constant">Camping</span><span class="punct">.</span><span class="ident">goes</span> <span class="symbol">:Nuts</span>
+
+<span class="keyword">module </span><span class="module">Nuts::Models</span>
+  <span class="keyword">class </span><span class="class">Page</span> <span class="punct">&lt;</span> <span class="constant">Base</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<p>Obviously, this won’t do anything, since we don’t have any controllers, but let’s rather have a look at we <em>do</em> have.</p>
+
+<p>We have a model named <code>Page</code>. This means we now can store wiki pages and retrieve them later. In fact, we can have as many models as we want. Need one for your users and one for your blog posts? Well, I think you already know how to do it.</p>
+
+<p>However, our model is missing something essential: a skeleton.</p>
+
+<blockquote>
+<pre><span class="constant">Camping</span><span class="punct">.</span><span class="ident">goes</span> <span class="symbol">:Nuts</span>
+
+<span class="keyword">module </span><span class="module">Nuts::Models</span>
+  <span class="keyword">class </span><span class="class">Page</span> <span class="punct">&lt;</span> <span class="constant">Base</span>
+  <span class="keyword">end</span>
+  
+  <span class="keyword">class </span><span class="class">BasicFields</span> <span class="punct">&lt;</span> <span class="constant">V</span> <span class="number">1.0</span>
+    <span class="keyword">def </span><span class="method">self.up</span>
+      <span class="ident">create_table</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">table_name</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">t</span><span class="punct">|</span>
+        <span class="ident">t</span><span class="punct">.</span><span class="ident">string</span> <span class="symbol">:title</span>
+        <span class="ident">t</span><span class="punct">.</span><span class="ident">text</span>   <span class="symbol">:content</span>
+        <span class="comment"># This gives us created_at and updated_at</span>
+        <span class="ident">t</span><span class="punct">.</span><span class="ident">timestamps</span>
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    
+    <span class="keyword">def </span><span class="method">self.down</span>
+      <span class="ident">drop_table</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">table_name</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<p>Now we have our first version of our model. It says:</p>
+
+<ul>
+<li>If you want to migrate up to version one,
+
+<ul>
+<li>create the skeleton for the Page model,
+
+<ul>
+<li>which should be able to store,
+
+<ul>
+<li>"title" which is a string,</li>
+<li>"content" which is a larger text,</li>
+<li>"created_at" which is the time it was created,</li>
+<li>"updated_at" which is the previous time it was updated.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>If you want to migrate down from version one,
+
+<ul>
+<li>remove the skeleton for the Page model.</li>
+</ul>
+</li>
+</ul>
+
+
+<p>This is called a <em>migration</em>. Whenever you want to change or add new models you simply add a new migration below, where you increase the version number. All of these migrations builds upon each other like LEGO blocks.</p>
+
+<p>Now we just need to tell Camping to use our migration. Write this at the bottom of nuts.rb</p>
+
+<blockquote>
+<pre><span class="keyword">def </span><span class="method">Nuts.create</span>
+  <span class="constant">Nuts</span><span class="punct">::</span><span class="constant">Models</span><span class="punct">.</span><span class="ident">create_schema</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<p>When The Camping Server boots up, it will automatically call <code>Nuts.create</code>. You can put all kind of startup-code here, but right now we only want to create our skeleton (or upgrade if needed). Start <a href="Camping-Server">The Camping Server</a> again and observe:</p>
+
+<pre><code>$ camping nuts.rb
+** Starting Mongrel on 0.0.0.0:3301
+-- create_table("nuts_schema_infos")
+   -&gt; 0.1035s
+==  Nuts::Models::BasicFields: migrating ===================================
+-- create_table(:nuts_pages)
+   -&gt; 0.0033s
+==  Nuts::Models::BasicFields: migrated (0.0038s) ==========================
+</code></pre>
+
+<p>Restart it, and enjoy the silence. There’s no point of re-creating the skeleton this time.</p>
+
+<p>Before we go on, there’s one rule you must known: Always place your models before your migrations.</p>
+
+<h2 class=fill>Using our model</h2>
+<h2 class=outline id="Using-our-model">Using our model</h2>
+
+<p>Let’s explore how our model works by going into the <em>console</em></p>
+
+<pre><code>$ camping -C nuts.rb
+** Starting console
+&gt;&gt;
+</code></pre>
+
+<p>Now it’s waiting for your input, and will give you the answer when you press Enter. Here’s what I did, leaving out the boring answers. You should add your own pages.</p>
+
+<blockquote>
+<pre><span class="punct">&gt;&gt;</span> <span class="constant">Page</span> <span class="punct">=</span> <span class="constant">Nuts</span><span class="punct">::</span><span class="constant">Models</span><span class="punct">::</span><span class="constant">Page</span>
+
+<span class="punct">&gt;&gt;</span> <span class="ident">hiking</span> <span class="punct">=</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">new</span><span class="punct">(</span><span class="symbol">:title</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string">Hiking</span><span class="punct">&quot;)</span>
+<span class="punct">&gt;&gt;</span> <span class="ident">hiking</span><span class="punct">.</span><span class="ident">content</span> <span class="punct">=</span> <span class="punct">&quot;</span><span class="string">You can also set the values like this.</span><span class="punct">&quot;</span>
+<span class="punct">&gt;&gt;</span> <span class="ident">hiking</span><span class="punct">.</span><span class="ident">save</span>
+
+<span class="punct">&gt;&gt;</span> <span class="ident">page</span> <span class="punct">=</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">find_by_title</span><span class="punct">(&quot;</span><span class="string">Hiking</span><span class="punct">&quot;)</span>
+<span class="punct">=&gt;</span> <span class="comment">#&lt;Nuts::Models::Page id: 1, ... &gt;</span>
+<span class="punct">&gt;&gt;</span> <span class="ident">page</span> <span class="punct">=</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">find</span><span class="punct">(</span><span class="number">1</span><span class="punct">)</span>
+<span class="punct">=&gt;</span> <span class="comment">#&lt;Nuts::Models::Page id: 1, ... &gt;</span>
+<span class="punct">&gt;&gt;</span> <span class="ident">page</span><span class="punct">.</span><span class="ident">title</span>
+<span class="punct">&gt;&gt;</span> <span class="ident">page</span><span class="punct">.</span><span class="ident">content</span>
+<span class="punct">&gt;&gt;</span> <span class="ident">page</span><span class="punct">.</span><span class="ident">created_at</span>
+<span class="punct">&gt;&gt;</span> <span class="ident">page</span><span class="punct">.</span><span class="ident">updated_at</span>
+
+<span class="punct">&gt;&gt;</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">find_by_title</span><span class="punct">(&quot;</span><span class="string">Fishing</span><span class="punct">&quot;)</span>
+<span class="punct">=&gt;</span> <span class="constant">nil</span>
+
+<span class="comment">## Page.create automatically saves the page for you.</span>
+<span class="punct">&gt;&gt;</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">create</span><span class="punct">(</span><span class="symbol">:title</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string">Fishing</span><span class="punct">&quot;,</span> <span class="symbol">:content</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string">Go fish!</span><span class="punct">&quot;)</span>
+
+<span class="punct">&gt;&gt;</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">count</span>
+<span class="punct">=&gt;</span> <span class="number">2</span></pre>
+</blockquote>
+
+
+<p>Now I have two pages: One about hiking and one about fishing.</p>
+
+<h2 class=fill>Wrapping it up</h2>
+<h2 class=outline id="Wrapping-it-up">Wrapping it up</h2>
+
+<p>Wouldn’t it be nice if we could show this wonderful our pages in a browser? Update nuts.rb so it also contains something like this:</p>
+
+<blockquote>
+<pre><span class="keyword">module </span><span class="module">Nuts::Controllers</span>
+  <span class="keyword">class </span><span class="class">Pages</span>
+    <span class="keyword">def </span><span class="method">get</span>
+      <span class="comment"># Only fetch the titles of the pages.</span>
+      <span class="attribute">@pages</span> <span class="punct">=</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">all</span><span class="punct">(</span><span class="symbol">:select</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string">title</span><span class="punct">&quot;)</span>
+      <span class="ident">render</span> <span class="symbol">:list</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+  
+  <span class="keyword">class </span><span class="class">PageX</span>
+    <span class="keyword">def </span><span class="method">get</span><span class="punct">(</span><span class="ident">title</span><span class="punct">)</span>
+      <span class="attribute">@page</span> <span class="punct">=</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">find_by_title</span><span class="punct">(</span><span class="ident">title</span><span class="punct">)</span>
+      <span class="ident">render</span> <span class="symbol">:view</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">module </span><span class="module">Nuts::Views</span>
+  <span class="keyword">def </span><span class="method">list</span>
+    <span class="ident">h1</span> <span class="punct">&quot;</span><span class="string">All pages</span><span class="punct">&quot;</span>
+    <span class="ident">ul</span> <span class="keyword">do</span>
+      <span class="attribute">@pages</span><span class="punct">.</span><span class="ident">each</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">page</span><span class="punct">|</span>
+        <span class="ident">li</span> <span class="keyword">do</span>
+          <span class="ident">a</span> <span class="ident">page</span><span class="punct">.</span><span class="ident">title</span><span class="punct">,</span> <span class="symbol">:href</span> <span class="punct">=&gt;</span> <span class="constant">R</span><span class="punct">(</span><span class="constant">PageX</span><span class="punct">,</span> <span class="ident">page</span><span class="punct">.</span><span class="ident">title</span><span class="punct">)</span>
+        <span class="keyword">end</span>
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+  
+  <span class="keyword">def </span><span class="method">view</span>
+    <span class="ident">h1</span> <span class="attribute">@page</span><span class="punct">.</span><span class="ident">title</span>
+    <span class="constant">self</span> <span class="punct">&lt;&lt;</span> <span class="attribute">@page</span><span class="punct">.</span><span class="ident">content</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<p>Here we meet our first helper:</p>
+
+<blockquote>
+<pre><span class="constant">R</span><span class="punct">(</span><span class="constant">PageX</span><span class="punct">,</span> <span class="ident">page</span><span class="punct">.</span><span class="ident">title</span><span class="punct">)</span></pre>
+</blockquote>
+
+
+<p>This is the <em>reversed router</em> and it generates a URL based on a controller. Camping ships with a few, but very useful, helpers and you can easily add your owns. Have a look at Camping::Helpers for how you use these.</p>
+
+<p>There’s a lot of improvements you could do here. Let me suggest:</p>
+
+<ul>
+<li>Show when the page was created and last updated.</li>
+<li>What happens when the page doesn’t exist?</li>
+<li>What should the front page show?</li>
+<li>Add a layout.</li>
+<li>Jazz it up a bit.</li>
+</ul>
+
+
+<h2 class=fill>The last touch</h2>
+<h2 class=outline id="The-last-touch">The last touch</h2>
+
+<p>We have one major flaw in our little application. You can’t edit or add new pages. Let’s see if we can fix that:</p>
+
+<blockquote>
+<pre><span class="keyword">module </span><span class="module">Nuts::Controllers</span>
+  <span class="keyword">class </span><span class="class">PageX</span>
+    <span class="keyword">def </span><span class="method">get</span><span class="punct">(</span><span class="ident">title</span><span class="punct">)</span>
+      <span class="keyword">if</span> <span class="attribute">@page</span> <span class="punct">=</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">find_by_title</span><span class="punct">(</span><span class="ident">title</span><span class="punct">)</span>
+        <span class="ident">render</span> <span class="symbol">:view</span>
+      <span class="keyword">else</span>
+        <span class="ident">redirect</span> <span class="constant">PageXEdit</span><span class="punct">,</span> <span class="ident">title</span>
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    
+    <span class="keyword">def </span><span class="method">post</span><span class="punct">(</span><span class="ident">title</span><span class="punct">)</span>
+      <span class="comment"># If it doesn't exist, initialize it:</span>
+      <span class="attribute">@page</span> <span class="punct">=</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">find_or_initialize_by_title</span><span class="punct">(</span><span class="ident">title</span><span class="punct">)</span>
+      <span class="comment"># This is the same as:</span>
+      <span class="comment"># @page = Page.find_by_title(title) || Page.new(:title =&gt; title)</span>
+      
+      <span class="attribute">@page</span><span class="punct">.</span><span class="ident">content</span> <span class="punct">=</span> <span class="attribute">@input</span><span class="punct">.</span><span class="ident">content</span>
+      <span class="attribute">@page</span><span class="punct">.</span><span class="ident">save</span>
+      <span class="ident">redirect</span> <span class="constant">PageX</span><span class="punct">,</span> <span class="ident">title</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+  
+  <span class="keyword">class </span><span class="class">PageXEdit</span>
+    <span class="keyword">def </span><span class="method">get</span><span class="punct">(</span><span class="ident">title</span><span class="punct">)</span>
+      <span class="attribute">@page</span> <span class="punct">=</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">find_or_initialize_by_title</span><span class="punct">(</span><span class="ident">title</span><span class="punct">)</span>
+      <span class="ident">render</span> <span class="symbol">:edit</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<p>The core of this code lies in the new <code>post</code> method in the PageX controller. When someone types an address or follows a link, they’ll end up at the <code>get</code> method, but you can easily create a form which rather sends you to the <code>post</code> when submitted.</p>
+
+<p>There are other names you can use, but they won’t always work. So for now, don’t be fancy and just stick to <code>get</code> and <code>post</code>. We’ll show you how this really works later.</p>
+
+<p>You might also notice that we use <code>@input.content</code>. The <code>@input</code>-hash contains any extra parameters sent, like those in the forms and those in the URL (<code>/posts?page=50</code>).</p>
+
+<p>Here’s an <code>edit</code>-view, but you can probably do better. See if you can integrate all of this with what you already have.</p>
+
+<blockquote>
+<pre><span class="keyword">module </span><span class="module">Nuts::Views</span>
+  <span class="keyword">def </span><span class="method">edit</span>
+    <span class="ident">h1</span> <span class="attribute">@page</span><span class="punct">.</span><span class="ident">title</span>
+    <span class="ident">form</span> <span class="symbol">:action</span> <span class="punct">=&gt;</span> <span class="constant">R</span><span class="punct">(</span><span class="constant">PageX</span><span class="punct">,</span> <span class="attribute">@page</span><span class="punct">.</span><span class="ident">title</span><span class="punct">),</span> <span class="symbol">:method</span> <span class="punct">=&gt;</span> <span class="symbol">:post</span> <span class="keyword">do</span>
+      <span class="ident">textarea</span> <span class="attribute">@page</span><span class="punct">.</span><span class="ident">content</span><span class="punct">,</span> <span class="symbol">:name</span> <span class="punct">=&gt;</span> <span class="symbol">:content</span><span class="punct">,</span>
+        <span class="symbol">:rows</span> <span class="punct">=&gt;</span> <span class="number">10</span><span class="punct">,</span> <span class="symbol">:cols</span> <span class="punct">=&gt;</span> <span class="number">50</span>
+      
+      <span class="ident">br</span>
+      
+      <span class="ident">input</span> <span class="symbol">:type</span> <span class="punct">=&gt;</span> <span class="symbol">:submit</span><span class="punct">,</span> <span class="symbol">:value</span> <span class="punct">=&gt;</span> <span class="punct">&quot;</span><span class="string">Submit!</span><span class="punct">&quot;</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<h2 class=fill>Phew.</h2>
+<h2 class=outline id="Phew.">Phew.</h2>
+
+<p>You’ve taken quite a few steps in the last minutes. You deserve a break. But let’s recap for a moment:</p>
+
+<ul>
+<li>Always place <code>Camping.goes :App</code> at the top of your file.</li>
+<li>Every route ends at a controller, but …</li>
+<li>… the controller only delegates the work.</li>
+<li><code>@input</code> contains the extra parameters.</li>
+<li>The views are HTML disguised as Ruby.</li>
+<li>They can access the instances variables (those that starts with a single at-sign) from the controller.</li>
+<li>The models allows you to store all kinds of data.</li>
+<li>Place your models before your migrations.</li>
+<li>Helpers are helpful.</li>
+</ul>
+
+
+<p>This book is a work in progress, and new chapters will likely be inserted after this one later, but for now the next chapter is [Publishing an App | Book: Publishing an App], which will guide you through a few ways you can put the app you just made online somewhere.</p>
+<a class="edit" href="http://github.com/camping/camping/wiki/Book:-Getting-Started/_edit" title="Edit Book: Getting Started"><button>Edit</button></a></div></div></body></html>

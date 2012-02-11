@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><link rel="stylesheet" href="style.css"/><title>Camping, Book: Appendix I</title><link rel="icon" href="badge.gif"/><meta name="viewport" content="width=695"/></head><body><header id="top"><h1 class="fill" id="">Book: Appendix I</h1><h1 class="outline" id="Book-Appendix-I">Book: Appendix I</h1></header><div id="wrapper"><ul class="aside" id="nav"><li><a href="index.html">Home</a></li><li><a href="The-Camping-Book">Camping Book</a></li><li><a href="http://camping.rubyforge.org/api.html">Reference</a></li><li><a href="http://log.whywentcamping.com/">Tumblog</a></li></ul><div id="subwrap"><h2 class=fill>Upgrade Notes</h2>
+<h2 class=outline id="Upgrade-Notes">Upgrade Notes</h2>
+
+<p>This document includes everything needed in order to <strong>upgrade</strong> your applications. If you’re looking for all the new features in a version, please have a look at the CHANGELOG in the Camping source.</p>
+
+<hr />
+
+<h3 class=fill>From 2.0 to 2.1</h3>
+<h3 class=outline id="From-2.0-to-2.1">From 2.0 to 2.1</h3>
+
+<h4 class=fill>Options</h4>
+<h4 class=outline id="Options">Options</h4>
+
+<p>In Camping 2.1 there is now a built-in way to store options and settings. If you use cookie session, it means that you’ll now have to change to:</p>
+
+<blockquote>
+<pre><span class="keyword">module </span><span class="module">Nuts</span>
+  <span class="ident">set</span> <span class="symbol">:secret</span><span class="punct">,</span> <span class="punct">&quot;</span><span class="string">Very secret text, which no-one else should know!</span><span class="punct">&quot;</span>
+  <span class="ident">include</span> <span class="constant">Camping</span><span class="punct">::</span><span class="constant">Session</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<hr />
+
+<h3 class=fill>From 1.5 to 2.0</h3>
+<h3 class=outline id="From-1.5-to-2.0">From 1.5 to 2.0</h3>
+
+<h4 class=fill>Rack</h4>
+<h4 class=outline id="Rack">Rack</h4>
+
+<p>The biggest change in 2.0 is that it now uses <a href="http://rack.rubyforge.org/">Rack</a> internally. This means that you’ll now have to deploy Camping differently, but hopefully more easily too. Now every Camping application is also a Rack application, so simply check out the documentation to the server of your choice.</p>
+
+<h4 class=fill>require 'camping/db'</h4>
+<h4 class=outline id="require-camping-db-">require 'camping/db'</h4>
+
+<p>In earlier versions of Camping, you loaded database support by:</p>
+
+<blockquote>
+<pre><span class="ident">require</span> <span class="punct">'</span><span class="string">camping/db</span><span class="punct">'</span></pre>
+</blockquote>
+
+
+<p>Actually, this loaded a very thin layer on top of ActiveRecord, and in the future we want to experiment with other libraries. Therefore you should now simply remove the line, and instead just inherit from Base right away. This also means you’ll have to place your migrations <strong>after</strong> the models.</p>
+
+<p>We also encourage you to use <code>Model.table_name</code> instead of <code>:appname_model</code>, just to make sure it’s named correctly.</p>
+
+<blockquote>
+<pre><span class="comment">## Don't require anything:</span>
+<span class="comment"># require 'camping/db'</span>
+
+<span class="keyword">module </span><span class="module">Nuts::Models</span>
+  <span class="comment">## Just inherit Base:</span>
+  <span class="keyword">class </span><span class="class">Page</span> <span class="punct">&lt;</span> <span class="constant">Base</span><span class="punct">;</span> <span class="keyword">end</span>
+  
+  <span class="comment">## Migrations have to come *after* the models:</span>
+  <span class="keyword">class </span><span class="class">CreateTheBasics</span> <span class="punct">&lt;</span> <span class="constant">V</span> <span class="number">0.1</span>
+    <span class="keyword">def </span><span class="method">self.up</span>
+      <span class="ident">create_table</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">table_name</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">t</span><span class="punct">|</span>
+        <span class="punct">...</span>
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    
+    <span class="keyword">def </span><span class="method">self.down</span>
+      <span class="ident">drop_table</span> <span class="constant">Page</span><span class="punct">.</span><span class="ident">table_name</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<h4 class=fill>Cookie Sessions</h4>
+<h4 class=outline id="Cookie-Sessions">Cookie Sessions</h4>
+
+<p>Camping 2.0 now uses a cookie-based session system, which means you now longer need a database in order to use sessions. The disadvantage of this is that you are restricted to only around 4k of data. See below for the changes required, and see Camping::Session more details.</p>
+
+<blockquote>
+<pre><span class="keyword">module </span><span class="module">Nuts</span>
+  <span class="comment">## Include Camping::Session as before:</span>
+  <span class="ident">include</span> <span class="constant">Camping</span><span class="punct">::</span><span class="constant">Session</span>
+  
+  <span class="comment">## But also define a secret:</span>
+  <span class="ident">secret</span> <span class="punct">&quot;</span><span class="string">Very secret text, which no-one else should know!</span><span class="punct">&quot;</span>
+<span class="keyword">end</span>
+
+<span class="keyword">def </span><span class="method">Nuts.create</span>
+  <span class="comment">## And remove the following line:</span>
+  <span class="comment"># Camping::Models::Session.create_schema</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<h4 class=fill>Error handling</h4>
+<h4 class=outline id="Error-handling">Error handling</h4>
+
+<p>Camping now uses three methods in order to handle errors. These replaces the old classes NotFound and ServerError.</p>
+
+<ul>
+<li>r404 is called when a route can’t be found.</li>
+<li>r501 is called when a route is found, but doesn’t respond to the method.</li>
+<li>r500 is called when an error happens.</li>
+</ul>
+
+
+<p>You can override these in your application:</p>
+
+<blockquote>
+<pre><span class="keyword">module </span><span class="module">Nuts</span>
+  <span class="keyword">def </span><span class="method">r404</span><span class="punct">(</span><span class="ident">path</span><span class="punct">)</span>
+    <span class="punct">&quot;</span><span class="string">Sorry, but I can't find <span class="expr">#{path}</span>.</span><span class="punct">&quot;</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">def </span><span class="method">r501</span><span class="punct">(</span><span class="ident">method</span><span class="punct">)</span>
+    <span class="punct">&quot;</span><span class="string">Sorry, but I can't respond to <span class="expr">#{method}</span>.</span><span class="punct">&quot;</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">def </span><span class="method">r500</span><span class="punct">(</span><span class="ident">klass</span><span class="punct">,</span> <span class="ident">method</span><span class="punct">,</span> <span class="ident">ex</span><span class="punct">)</span>
+    <span class="punct">&quot;</span><span class="string">Sorry, but <span class="expr">#{klass}</span>#<span class="expr">#{method}</span> failed with <span class="expr">#{ex}</span>.</span><span class="punct">&quot;</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre>
+</blockquote>
+
+
+<p>It should be noted that this might change in the future.</p>
+<a class="edit" href="http://github.com/camping/camping/wiki/Book:-Appendix-I/_edit" title="Edit Book: Appendix I"><button>Edit</button></a></div></div></body></html>

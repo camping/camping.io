@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><link rel="stylesheet" href="style.css"/><title>Camping, IRC</title><link rel="icon" href="badge.gif"/><meta name="viewport" content="width=695"/></head><body><header id="top"><h1 class="fill" id="">IRC</h1><h1 class="outline" id="IRC">IRC</h1></header><div id="wrapper"><ul class="aside" id="nav"><li><a href="index.html">Home</a></li><li><a href="The-Camping-Book">Camping Book</a></li><li><a href="http://camping.rubyforge.org/api.html">Reference</a></li><li><a href="http://log.whywentcamping.com/">Tumblog</a></li></ul><div id="subwrap"><p>Camping is mainly active on the <a href="Mailing-List">Mailing List</a>, but we're also hanging around on IRC too! Huddled around the warm flickering glow of red pixels on some recently rotated logs, we exchange ghost stories of bugs passed, ideas for the future, and most importantly, just sit in awe at the stars, the universe, and everything.</p>
+
+<p>It's a common mistake at first to think this awe to be idling, but I can assure you fully that it is much more of a meditative state than any lack of interest. If you know what IRC is, head on over to freenode, in the #camping channel, otherwise:</p>
+
+<h2 class=fill>What IRC Is</h2>
+<h2 class=outline id="What-IRC-Is">What IRC Is</h2>
+
+<p>Internet Relay Chat. An ancient technology from before these tubes even knew the meaning of TCP/IP! A network of servers distribute messages to everyone within a group, called a channel. The odd, silly step sister of <a href="Mailing-Lists">Mailing Lists</a>, born of live chat and <a href="http://en.wikipedia.org/wiki/Hummus">hommous</a> sandwiches. You'll need some kind of IRC client to connect to it. <a href="http://www.xchat.org/">XChat</a> is available for nearly every kind of computer, but if you search around you can surely find nicer clients more specifically for your kind of computer, phone, or pad.</p>
+
+<p>Once you've got some software, create a new connection to 'irc.freenode.org'. Once connected, either enter <strong>/join #camping</strong> in to a console window appearing, or use a 'Join Room' UI widget to join #camping. Or alternatively, just go use this nifty <a href="http://webchat.freenode.net/?channels=camping">Web IRC Thingy</a> and forget all that stuff I just said.</p>
+<a class="edit" href="http://github.com/camping/camping/wiki/IRC/_edit" title="Edit IRC"><button>Edit</button></a></div></div></body></html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><link rel="stylesheet" href="style.css"/><title>Camping, Rules of Thumb</title><link rel="icon" href="badge.gif"/><meta name="viewport" content="width=695"/></head><body><header id="top"><h1 class="fill" id="">Rules of Thumb</h1><h1 class="outline" id="Rules-of-Thumb">Rules of Thumb</h1></header><div id="wrapper"><ul class="aside" id="nav"><li><a href="index.html">Home</a></li><li><a href="The-Camping-Book">Camping Book</a></li><li><a href="http://camping.rubyforge.org/api.html">Reference</a></li><li><a href="http://log.whywentcamping.com/">Tumblog</a></li></ul><div id="subwrap"><ul>
+	<li><a href="Rules-of-Thumb#one-file">Keep it in one file</a></li>
+	<li><a href="Rules-of-Thumb#small-apps">Small Apps, Many Mounts</a></li>
+	<li><a href="Rules-of-Thumb#create-method">Give Us a `create&#8217; Method</a></li>
+	<li><a href="Rules-of-Thumb#server">The Camping Server</a></li>
+</ul>
+<h2 class=fill id="one-file">Keep it in one file</h2>
+<h2 class=outline id="one-file">Keep it in one file</h2>
+<p>Generally, the idea is keep your app small and store in a single file. Your app will end up with four sections:</p>
+<p>1. Camping setup</p>
+<pre><code>ruby do
+  require 'rubygems'
+  require 'camping'
+  Camping.goes :Blog
+end</code></pre>
+<p>2. Models</p>
+<pre><code>ruby do
+  module Blog::Models
+    class User &lt; Base; end
+    class Post &lt; Base; belongs_to :user end
+  end
+end</code></pre>
+<p>3. Controllers</p>
+<pre><code>ruby do
+  module Blog::Controllers
+    class Index &lt; R '/'
+      def get; render :index end
+    end
+  end
+end</code></pre>
+<p>4. Views</p>
+<pre><code>ruby do
+  module Blog::Views
+    def layout
+      html { body { self &lt;&lt; yield } }
+    end
+    def index
+      div.page "Welcome!"
+    end
+  end
+end</code></pre>
+<p>(Optional) You may choose to <a href="Rules-of-Thumb#create-method">Give Us a `create&#8217; Method</a>.</p>
+<h3 class=fill>What if Things Get Out of Hand?</h3>
+<h3 class=outline id="What-if-Things-Get-Out-of-Hand-">What if Things Get Out of Hand?</h3>
+<p>If you&#8217;re piling up models and controllers, your file may begin to exceed 200 lines, which means lots of paging up and down. Go ahead and store your models, controllers and views in three separate files. Your directory structure should end up like this:</p>
+<pre><code>blog.rb
+blog/
+  models.rb
+  controllers.rb
+  views.rb</code></pre>
+<p>(Note, for the development reloading to work, your required files (models.rb etc.) must be in a subdirectory named after your app.)</p>
+<p>Your blog.rb would still contain the setup (No. 1):</p>
+<pre><code>ruby do
+  require 'rubygems'
+  require 'camping'
+  Camping.goes :Blog
+  require 'blog/helpers'  # if needed
+  require 'blog/models'
+  require 'blog/views'
+  require 'blog/controllers'
+end</code></pre>
+<h2 class=fill id="small-apps">Small Apps, Many Mounts</h2>
+<h2 class=outline id="small-apps">Small Apps, Many Mounts</h2>
+<p>Rather than building huge Camping apps, the idea here is to write small apps which can each be mounted at directories on your web server. One restriction: these apps will share a database. However, this allows applications to access each other&#8217;s tables and simplifies setup and configuration.</p>
+<p>The camping tool starts a web server which mounts apps in this fashion. If you want to mount all your apps, run <code>camping apps/**/*.rb</code>.</p>
+<p>You&#8217;ll end up with:</p>
+<ul>
+	<li>http://localhost:3301/blog, a blogging app.</li>
+	<li>http://localhost:3301/tepee, a wiki app.</li>
+	<li>http://localhost:3301/charts, a charting app.</li>
+</ul>
+<p>In your app, if you&#8217;re using the R() method to build your links, Camping will make sure the mount is added properly to links.</p>
+<p>For example, if R(View, 1) is used in the blogging app mounted at /blog, the link will be written as /blog/view/1. If later you mount the blog at /articles instead, Camping will write the link as /articles/view/1.</p>
+<h2 class=fill id="create-method">Give Us a `create&#8217; Method</h2>
+<h2 class=outline id="create-method">Give Us a `create&#8217; Method</h2>
+<pre><code>ruby do
+  def Blog.create
+    # Code in here will run when the app starts, or reloads, but not when requests happen.
+    # You can use it to create database bits and pieces, files, folders, and so on.
+  end
+end</code></pre>
+<h2 class=fill id="server">The Camping Server</h2>
+<h2 class=outline id="server">The Camping Server</h2>
+<p><img src="campingserverlayout.png" alt="" /></p>
+<p>The Camping Server is basically a set of rules. At the very least, The Camping Server must:</p>
+<ul>
+	<li>Load all Camping apps in a directory.</li>
+	<li>Load new apps that appear in that directory.</li>
+	<li>Mount those apps according to their filename. (e.g. blog.rb is mounted at /blog.)</li>
+	<li>Run each app&#8217;s create method upon startup.</li>
+	<li>Reload the app if its modification time changes.</li>
+	<li>Reload the app if it requires any files under the same directory and one of their modification times changes.</li>
+	<li>Support the X-Sendfile header.</li>
+</ul>
+<h3 class=fill>bin/camping</h3>
+<h3 class=outline id="bin-camping">bin/camping</h3>
+<p>Camping comes with a very simple version of The Camping Server. bin/camping uses either WEBrick or Mongrel (if you have it installed.)</p>
+<p>Run it like this: <code>camping /var/www/camping/*</code>. It will follow all of the rules above.</p><a class="edit" href="http://github.com/camping/camping/wiki/Rules-of-Thumb/_edit" title="Edit Rules of Thumb"><button>Edit</button></a></div></div></body></html>

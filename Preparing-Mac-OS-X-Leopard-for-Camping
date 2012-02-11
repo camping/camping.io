@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><link rel="stylesheet" href="style.css"/><title>Preparing Mac OS X Leopard for Camping</title><link rel="icon" href="badge.gif"/><meta name="viewport" content="width=695"/></head><body><header id="top"><h1 class="fill" id="">Preparing Mac OS X Leopard for Camping</h1><h1 class="outline" id="Preparing-Mac-OS-X-Leopard-for-Camping">Preparing Mac OS X Leopard for Camping</h1></header><div id="wrapper"><ul class="aside" id="nav"><li><a href="index.html">Home</a></li><li><a href="The-Camping-Book">Camping Book</a></li><li><a href="http://camping.rubyforge.org/api.html">Reference</a></li><li><a href="http://log.whywentcamping.com/">Tumblog</a></li></ul><div id="subwrap"><p>These notes are for setting up a fresh OS X Leopard system (10.5.8) to run Camping, in as few steps as possible. It presumes you know how to use Apple&#8217;s Terminal, but may not have arrived here via <a href="http://rubyonrails.org/">Rails</a>. If you want more, there&#8217;s an <a href="http://www.elsn.org/articles/mac-setup/">extensive article on setting up OS X for Ruby development</a> elsewhere, and you can also read the <a href="http://docs.rubygems.org/read/chapter/3">Ruby gems install guide</a>. If you aren&#8217;t using OS X <a href="http://www.elsn.org/articles/installing-ruby/">see this article to set up Ruby on Windows or Linux</a>. If you know better, please edit this page!</p>
+<p>If you don&#8217;t have it already, install the latest Developer Tools that will run on 10.5.8 (XCode 3.1.4). You can get <a href="http://mac.softpedia.com/get/Development/Compilers/Apple-Xcode.shtml">XCode 3.1.4 from Softpedia</a> or from Apple&#8217;s <a href="http://developer.apple.com">Developer Connection</a> (free to join). You can then try the <a href="http://camping.rubyforge.org/book/01_introduction.html">Camping tutorial</a> in the free XCode environment and editor.</p>
+<h2 class=fill>Gem locations in Leopard</h2>
+<h2 class=outline id="Gem-locations-in-Leopard">Gem locations in Leopard</h2>
+<p>Camping and the gems it uses can easily be installed with the default Leopard system. There are various sources of information (and warnings) about this but (if you aren&#8217;t using <a href="http://www.macports.org/">Macports</a>, <a href="http://mxcl.github.com/homebrew/">Homebrew</a> or installing to <a href="http://hivelogic.com/articles/using_usr_local">usr/local</a>) never fear, here&#8217;s what you need to know.</p>
+<p>The default gems that come with Leopard are at:<br />
+<code>/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/gems/1.8</code></p>
+<p>Your updated and new gems are installed by default at:<br />
+<code>/Library/Ruby/Gems/1.8</code></p>
+<p>Finally, if you&#8217;ve ever done <code>gem install</code> as a non-admin user (i.e. not using <code>sudo</code>) you might have a <code>.gem</code> folder in your Home folder, which you can safely remove (unless you&#8217;ve deliberately added it to your path and want to keep your own gems separate from the system), then re-install the missing gems using <code>sudo</code>.</p>
+<p>You can update RubyGems with <code>sudo gem update --system</code> and although some warn of <a href="http://discussions.apple.com/thread.jspa?threadID=1202925&amp;tstart=0">fixes required for applications like Aptana and NetBeans</a>, Apple&#8217;s own <a href="http://developer.apple.com/tools/developonrailsleopard.html">Rails developer page</a> seems to think it&#8217;s okay, and others suggest these <a href="http://www.rojotek.com/blog/2009/05/27/updating-rubygems-in-os-x/">issues may have been fixed by 10.5.7</a>.</p>
+<p>Do <code>gem list --local</code> to see the full list from both locations. If you just want to see what you&#8217;ve installed, type<br />
+<code>cd /Library/Ruby/Gems/1.8</code><br />
+then (e.g.)<br />
+<code>ls -al</code><br />
+to check the new files after each new gem install. For documentation on the gems you&#8217;ve installed (including Camping), type <code>gem server</code> and visit <code>http://localhost:8808/</code> (after updates, hit <strong>ctrl Z</strong> to stop gem server or close the terminal window, then launch it again).</p>
+<h2 class=fill>Install Camping and what it needs</h2>
+<h2 class=outline id="Install-Camping-and-what-it-needs">Install Camping and what it needs</h2>
+<p><code>gem dependency camping</code> shows that Camping requires only Rack &gt;= 0.3 and (for generating <span class="caps">HTML</span>) markaby &gt;= 0.5, so install Rack, Markaby and Camping:<br />
+<code>sudo gem install rack</code><br />
+<code>sudo gem install markaby</code><br />
+<code>sudo gem install camping</code></p>
+<p>You might also want to update the Leopard versions of Mongrel and Rake and, for using databases, ActiveRecord and sqlite3-ruby:<br />
+<code>sudo gem update mongrel</code><br />
+<code>sudo gem update rake</code><br />
+<code>sudo gem update activerecord</code><br />
+<code>sudo gem update sqlite3-ruby</code></p>
+<p>These (including the updates) will be installed in <code>/Library/Ruby/Gems/1.8</code></p>
+<p>When updating sqlite3-ruby you may see lots of lines starting &quot;No definition for &quot; which indicates missing documentation, but the gem will still work.</p>
+<p>You can now <a href="http://camping.rubyforge.org/book/02_getting_started.html">go Camping</a> in Leopard. To stop the Camping test server, Mongrel, without closing the Terminal window press <strong>ctrl C</strong>.</p><a class="edit" href="http://github.com/camping/camping/wiki/Preparing-Mac-OS-X-Leopard-for-Camping/_edit" title="Edit Preparing Mac OS X Leopard for Camping"><button>Edit</button></a></div></div></body></html>

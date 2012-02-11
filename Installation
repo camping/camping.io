@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><link rel="stylesheet" href="style.css"/><title>Camping, Installation</title><link rel="icon" href="badge.gif"/><meta name="viewport" content="width=695"/></head><body><header id="top"><h1 class="fill" id="">Installation</h1><h1 class="outline" id="Installation">Installation</h1></header><div id="wrapper"><ul class="aside" id="nav"><li><a href="index.html">Home</a></li><li><a href="The-Camping-Book">Camping Book</a></li><li><a href="http://camping.rubyforge.org/api.html">Reference</a></li><li><a href="http://log.whywentcamping.com/">Tumblog</a></li></ul><div id="subwrap"><p>Before you can install Camping, you&#8217;ll need both <a href="http://www.ruby-lang.org/en/downloads/">Ruby</a> and <a href="http://rubygems.org/pages/download">RubyGems</a>, so if you don’t have that installed yet, go grab &#8216;em! Once that’s sorted out, open up a Terminal or Command Line and enter (if you&#8217;re on Linux/OS X you might run it as root):</p>
+<pre><code>gem install camping</code></pre>
+<p>Even better, install the <a href="Camping-Omnibus">Camping Omnibus</a>, a full package of recommended libs:</p>
+<pre><code>gem install camping-omnibus</code></pre>
+<p>If not, you should be aware of that Camping itself only depends on <a href="http://rack.rubyforge.org/">Rack</a>. If you’re going to use the views you also need to install <code>markaby</code>, and if you’re going to use the database you&#8217;ll need <code>activerecord</code> as well.</p>
+<pre><code>gem install markaby
+gem install activerecord</code></pre>
+<h2 class=fill>Experimental version</h2>
+<h2 class=outline id="Experimental-version">Experimental version</h2>
+<p>If you want to live on the edge, Magnus Holm provides semi-stable gems:</p>
+<pre><code>gem install camping --source http://gems.judofyr.net/</code></pre>
+<p>You can also clone the repo and use the <code>rake gem</code> command:</p>
+<pre><code>git clone git://github.com/camping/camping.git
+rake gem
+cd pkg
+gem install --local camping-VERSION.gem</code></pre>
+<h2 class=fill>Other guides</h2>
+<h2 class=outline id="Other-guides">Other guides</h2>
+<ul>
+	<li><a href="Preparing-Mac-OS-X-Leopard-for-Camping">Preparing Mac OS X Leopard for Camping</a></li>
+	<li><a href="Camping-in-jRuby">Camping in jRuby</a></li>
+	<li><a href="http://radiant-sunset-95.heroku.com/how-to-run-camping-2-apps-on-heroku">Deploying Camping to Heroku</a></li>
+</ul><a class="edit" href="http://github.com/camping/camping/wiki/Installation/_edit" title="Edit Installation"><button>Edit</button></a></div></div></body></html>

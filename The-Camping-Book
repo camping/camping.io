@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"/><link rel="stylesheet" href="style.css"/><title>The Camping Book</title><link rel="icon" href="badge.gif"/><meta name="viewport" content="width=695"/></head><body><header id="top"><h1 class="fill" id="">The Camping Book</h1><h1 class="outline" id="The-Camping-Book">The Camping Book</h1></header><div id="wrapper"><ul class="aside" id="nav"><li><a href="index.html">Home</a></li><li><a href="The-Camping-Book">Camping Book</a></li><li><a href="http://camping.rubyforge.org/api.html">Reference</a></li><li><a href="http://log.whywentcamping.com/">Tumblog</a></li></ul><div id="subwrap"><p>Camping is a small web framework, less than 4k, a little white blood cell in the vein of Rails. This little book will start with a tutorial which takes about fifteen minutes - by the end you should have a little Camping site up. The following chapters will eventually go deeper into how both Camping, HTTP and Rack works.</p>
+
+<p>(“Eventually”, because these chapters are not written yet. This book is currently a very much work in progress, and we’ll be very grateful if you want to help out.)</p>
+
+<p>If you at any moment need some help or have any questions or comments, we highly recommend the <a href="Mailing-List">Mailing List</a> which has plenty of nice people willing to help. We also have an <a href="IRC">IRC Channel</a> if you’re into that sort of things.</p>
+
+<p>Enough talk. Ready? Let’s "get started".</p>
+
+<ol>
+<li><a href="Book:-Getting-Started">Getting Started</a>
+
+<ul>
+<li><a href="Book:-Getting-Started#Hello-clock">Hello clock</a></li>
+<li><a href="Book:-Getting-Started#Enjoying-the-view">Enjoying the view</a></li>
+<li><a href="Book:-Getting-Started#Routes">Routes</a></li>
+<li><a href="Book:-Getting-Started#Modeling-the-world">Modeling the world</a></li>
+<li><a href="Book:-Getting-Started#Using-our-model">Using our model</a></li>
+<li><a href="Book:-Getting-Started#Wrapping-it-up">Wrapping it up</a></li>
+<li><a href="Book:-Getting-Started#The-last-touch">The last touch</a></li>
+<li><a href="Book:-Getting-Started#Phew-">Phew</a></li>
+</ul>
+</li>
+<li><a href="Book:-Publishing-an-App">Publishing an App</a>
+
+<ul>
+<li><a href="Book:-Publishing-an-App#Using-a-Spare-Computer">Using a Spare Computer</a></li>
+<li><a href="Book:-Publishing-an-App#Using-Dreamhost">Using Dreamhost</a></li>
+<li><a href="Book:-Publishing-an-App#Using-Heroku">Using Heroku</a></li>
+<li><a href="Book:-Publishing-an-App#Using-Google-App-Engine">Using Google App Engine</a></li>
+<li><a href="Book:-Publishing-an-App#Using-a-CGI-Webhost">Using a CGI Webhost</a></li>
+<li><a href="Book:-Publishing-an-App#Using-a-Rack-compatible-Webhost">Using a Rack-compatible Webhost</a></li>
+</ul>
+</li>
+<li><a href="Book:-Appendix-I">Appendix I: Upgrade Notes</a>
+
+<ul>
+<li><a href="Book:-Appendix-I#From-2.0-to-2.1">From 2.0 to 2.1</a></li>
+<li><a href="Book:-Appendix-I#From-1.5-to-2.0">From 1.5 to 2.0</a></li>
+</ul>
+</li>
+</ol>
+
+<a class="edit" href="http://github.com/camping/camping/wiki/The-Camping-Book/_edit" title="Edit The Camping Book"><button>Edit</button></a></div></div></body></html>

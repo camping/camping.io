@@ -98,7 +98,11 @@ body h4.fill { color: #ffcc66; }
 
 
 @media speech {
-  h1.fill, h2.fill, h3.fill, h4.fill, h5.fill, .fill, header.fill { display: none; }
+  h1.fill, h2.fill, h3.fill, h4.fill, h5.fill, .fill, header .fill {
+    display: none;
+    visibility: hidden;
+    color: transparent;
+  }
 }
 
 #wrapper {

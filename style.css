@@ -82,6 +82,7 @@ h1.fill, h2.fill, h3.fill, h4.fill, h5.fill {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+  speak: none;
 }
 
 /* sizes! */

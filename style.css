@@ -111,7 +111,7 @@ body h4.fill { color: #ffcc66; }
   -webkit-border-image: url("paper.png") 75 30 50 30 stretch stretch;
   -moz-border-image: url("paper.png") 75 30 50 30 stretch stretch;
   -o-border-image: url("http://whywentcamping.com/img/paper.png") 75 30 50 30 stretch stretch;
-  border-image: url("paper.png") 75 30 50 30 stretch stretch;
+  border-image: url("paper.png") 75 30 50 30 fill stretch stretch;
   border-width: 75px 30px 50px 30px;
   position: relative;
   width: 600px;

@@ -9,9 +9,9 @@
 <body>
   <div id="menu">
     <ul id="links">
-      <li><a href="../index.html">front</a> | </li>
+      <li><a href="/">front</a> | </li>
       <li><a href="../book.html">ToC</a> | </li>
-      <li><a href="../api.html">reference</a> | </li>
+      <li><a href="../">reference</a> | </li>
       <li><a href="http://wiki.github.com/camping/camping">wiki</a> | </li>
       <li><a href="http://github.com/camping/camping">code</a></li>
     </ul>
@@ -27,12 +27,12 @@
 This document includes everything needed in order to <b>upgrade</b> your
 applications. If you&#8217;re looking for all the new features in a
 version, please have a look at the CHANGELOG in the <a
-href="../api.html#class-Camping">Camping</a> source.
+href="../#class-Camping">Camping</a> source.
 </p>
 <h2 class="ruled" id="from-20-to-21">From 2.0 to 2.1</h2>
 <h3>Options</h3>
 <p>
-In <a href="../api.html#class-Camping">Camping</a> 2.1 there is now a
+In <a href="../#class-Camping">Camping</a> 2.1 there is now a
 built-in way to store options and settings. If you use cookie session, it
 means that you&#8217;ll now have to change to:
 </p>
@@ -48,14 +48,14 @@ means that you&#8217;ll now have to change to:
 The biggest change in 2.0 is that it now uses <a
 href="http://rack.rubyforge.org/">Rack</a> internally. This means that
 you&#8217;ll now have to deploy <a
-href="../api.html#class-Camping">Camping</a> differently, but hopefully
-more easily too. Now every <a href="../api.html#class-Camping">Camping</a>
+href="../#class-Camping">Camping</a> differently, but hopefully
+more easily too. Now every <a href="../#class-Camping">Camping</a>
 application is also a Rack application, so simply check out the
 documentation to the server of your choice.
 </p>
 <h3>require &#8216;camping/db&#8216;</h3>
 <p>
-In earlier versions of <a href="../api.html#class-Camping">Camping</a>, you
+In earlier versions of <a href="../#class-Camping">Camping</a>, you
 loaded database support by:
 </p>
 <pre>
@@ -96,11 +96,11 @@ We also encourage you to use <tt>Model.table_name</tt> instead of
 </pre>
 <h3>Cookie Sessions</h3>
 <p>
-<a href="../api.html#class-Camping">Camping</a> 2.0 now uses a cookie-based
+<a href="../#class-Camping">Camping</a> 2.0 now uses a cookie-based
 session system, which means you now longer need a database in order to use
 sessions. The disadvantage of this is that you are restricted to only
 around 4k of data. See below for the changes required, and see <a
-href="../api.html#class-Camping-Session">Camping::Session</a> more details.
+href="../#class-Camping-Session">Camping::Session</a> more details.
 </p>
 <pre>
   module Nuts
@@ -118,20 +118,20 @@ href="../api.html#class-Camping-Session">Camping::Session</a> more details.
 </pre>
 <h3>Error handling</h3>
 <p>
-<a href="../api.html#class-Camping">Camping</a> now uses three methods in
+<a href="../#class-Camping">Camping</a> now uses three methods in
 order to handle errors. These replaces the old classes NotFound and
 ServerError.
 </p>
 <ul>
-<li><a href="../api.html#M000010">Camping::Base#r404</a> is called when a route
+<li><a href="../#M000010">Camping::Base#r404</a> is called when a route
 can&#8217;t be found.
 
 </li>
-<li><a href="../api.html#M000012">Camping::Base#r501</a> is called when a route
+<li><a href="../#M000012">Camping::Base#r501</a> is called when a route
 is found, but doesn&#8217;t respond to the method.
 
 </li>
-<li><a href="../api.html#M000011">Camping::Base#r500</a> is called when an
+<li><a href="../#M000011">Camping::Base#r500</a> is called when an
 error happens.
 
 </li>

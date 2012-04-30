@@ -9,9 +9,9 @@
 <body>
   <div id="menu">
     <ul id="links">
-      <li><a href="../index.html">front</a> | </li>
+      <li><a href="/">front</a> | </li>
       <li><a href="../book.html">ToC</a> | </li>
-      <li><a href="../api.html">reference</a> | </li>
+      <li><a href="../">reference</a> | </li>
       <li><a href="http://wiki.github.com/camping/camping">wiki</a> | </li>
       <li><a href="http://github.com/camping/camping">code</a></li>
     </ul>
@@ -44,7 +44,7 @@ And you should get a message which reads:
 </pre>
 <p>
 This means that right now The <a
-href="../api.html#class-Camping">Camping</a> Server is running on port 3301
+href="../#class-Camping">Camping</a> Server is running on port 3301
 on your machine. Open your browser and visit <a
 href="http://localhost:3301/.">localhost:3301/.</a>
 </p>
@@ -57,15 +57,15 @@ Your browser window should show:
   / Not found
 </pre>
 <p>
-No problem with that. The <a href="../api.html#class-Camping">Camping</a>
+No problem with that. The <a href="../#class-Camping">Camping</a>
 Server is running, but it doesn&#8217;t know what to show. Let&#8217;s tell
 him.
 </p>
 <h2 class="ruled" id="hello-clock">Hello clock</h2>
 <p>
-So, you&#8217;ve got <a href="../api.html#class-Camping">Camping</a>
+So, you&#8217;ve got <a href="../#class-Camping">Camping</a>
 installed and it&#8217;s running. Keep it running. You can edit files and
-The <a href="../api.html#class-Camping">Camping</a> Server will reload
+The <a href="../#class-Camping">Camping</a> Server will reload
 automatically. When you need to stop the server, press Control-C.
 </p>
 <p>
@@ -89,7 +89,7 @@ show the time, e.g.
 </pre>
 <h2 class="ruled" id="enjoying-the-view">Enjoying the view</h2>
 <p>
-The <a href="../api.html#class-Camping">Camping</a> microframework allows
+The <a href="../#class-Camping">Camping</a> microframework allows
 us to separate our code using the MVC (Model-View-Controller) design
 pattern. Let&#8217;s add a view to our Nuts application. Replace the
 <tt>module Nuts::Controllers</tt> with:
@@ -133,7 +133,7 @@ And the window title reads &#8220;Nuts And GORP&#8221;.
 Here you can see we call <tt>render :sundial</tt> from our controller. This
 does exactly what it says, and renders our <tt>sundial</tt> method.
 We&#8217;ve also added a special method called <tt>layout</tt> which <a
-href="../api.html#class-Camping">Camping</a> will automatically wrap our
+href="../#class-Camping">Camping</a> will automatically wrap our
 sundial output in. If you&#8217;re familiar with HTML, you&#8217;ll see
 that our view contains what looks HTML tag names. This is Markaby, which is
 like writing HTML using Ruby!
@@ -304,7 +304,7 @@ models you simply add a new migration below, where you increase the version
 number. All of these migrations builds upon each other like LEGO blocks.
 </p>
 <p>
-Now we just need to tell <a href="../api.html#class-Camping">Camping</a> to
+Now we just need to tell <a href="../#class-Camping">Camping</a> to
 use our migration. Write this at the bottom of nuts.rb
 </p>
 <pre>
@@ -313,11 +313,11 @@ use our migration. Write this at the bottom of nuts.rb
   end
 </pre>
 <p>
-When The <a href="../api.html#class-Camping">Camping</a> Server boots up,
+When The <a href="../#class-Camping">Camping</a> Server boots up,
 it will automatically call <tt>Nuts.create</tt>. You can put all kind of
 startup-code here, but right now we only want to create our skeleton (or
 upgrade if needed). Start The <a
-href="../api.html#class-Camping">Camping</a> Server again and observe:
+href="../#class-Camping">Camping</a> Server again and observe:
 </p>
 <pre>
   $ camping nuts.rb
@@ -428,9 +428,9 @@ Here we meet our first <em>helper</em>:
 </pre>
 <p>
 This is the <em>reversed router</em> and it generates a URL based on a
-controller. <a href="../api.html#class-Camping">Camping</a> ships with a
+controller. <a href="../#class-Camping">Camping</a> ships with a
 few, but very useful, helpers and you can easily add your owns. Have a look
-at <a href="../api.html#class-Camping-Helpers">Camping::Helpers</a> for how
+at <a href="../#class-Camping-Helpers">Camping::Helpers</a> for how
 you use these.
 </p>
 <p>
@@ -530,7 +530,7 @@ You&#8217;ve taken quite a few steps in the last minutes. You deserve a
 break. But let&#8217;s recap for a moment:
 </p>
 <ul>
-<li>Always place <tt><a href="../api.html#M000028">Camping.goes</a> :App</tt>
+<li>Always place <tt><a href="../#M000028">Camping.goes</a> :App</tt>
 at the top of your file.
 
 </li>

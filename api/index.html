@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="/style.css">
+  <title>Camping, a Microframework</title>
+  <link rel="icon" href="/img/badge.gif">
+  <meta name="viewport" content="width=660">
+</head>
+<body>
+  <header id="top">
+    <h1 class="fill">Camping, a Microframework</h1>
+    <h1 class="outline">Camping, a Microframework</h1>
+  </header>
+  <div id="wrapper">
+    <ul id="nav" class="aside">
+      <li id="home-button"><a href="/#top">Home</a></li>
+      <li><a href="/#getting-started">Getting Started</a></li>
+      <li><a href="/#community">Community</a></li>
+      <li><a href="http://camping.rubyforge.org/api.html">Reference</a></li>
+      <li><a href="http://campingrb.tumblr.com">News</a></li>
+      <!-- Need to get the rubyforge api stuff over here locally, and get tumblr hosting a subdomain of whywentcamping -->
+    </ul>
+    
+    <div id="subwrap"><p style="float:left;"><img src="/img/badge.gif" style="width:80px;" alt="" /></p>
+<p>Camping is a web framework which consistently stays at less than 4kB of code.
+You can probably view the complete source code on a single page. But, you know,
+it’s so small that, if you think about it, what can it really do?</p>
+<p>The idea here is to store a complete fledgling web application in a single file
+like many small CGIs. But to organize it as a Model-View-Controller application
+like Rails does. You can then easily move it to Rails once you’ve got it going.</p>
+<h2>Short Example</h2>
+<pre><span class="constant">Camping</span><span class="punct">.</span><span class="ident">goes</span> <span class="symbol">:Blog</span>
+
+<span class="keyword">module </span><span class="module">Blog::Models</span>
+  <span class="keyword">class </span><span class="class">Post</span> <span class="punct">&lt;</span> <span class="constant">Base</span><span class="punct">;</span> <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">module </span><span class="module">Blog::Controllers</span>
+  <span class="keyword">class </span><span class="class">Index</span>
+    <span class="keyword">def </span><span class="method">get</span>
+      <span class="attribute">@posts</span> <span class="punct">=</span> <span class="constant">Post</span><span class="punct">.</span><span class="ident">all</span>
+      <span class="ident">render</span> <span class="symbol">:index</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">module </span><span class="module">Blog::Views</span>
+  <span class="keyword">def </span><span class="method">index</span>
+    <span class="attribute">@posts</span><span class="punct">.</span><span class="ident">each</span> <span class="keyword">do</span> <span class="punct">|</span><span class="ident">post</span><span class="punct">|</span>
+      <span class="ident">h1</span> <span class="ident">post</span><span class="punct">.</span><span class="ident">title</span>
+      <span class="ident">div</span><span class="punct">.</span><span class="ident">content!</span> <span class="punct">{</span> <span class="ident">post</span><span class="punct">.</span><span class="ident">body</span> <span class="punct">}</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre><h2 id="getting-started">Getting Started</h2>
+<p>Interested yet? Great, the links below should get you started pretty quickly. If
+you&#8217;re having some problems or there&#8217;s something you&#8217;re wondering about, don&#8217;t
+hesitate to join the <a href="#community">community</a>.</p>
+<p><a href="http://wiki.github.com/camping/camping/installation"><strong>Installation:</strong></a> By using RubyGems it&#8217;s just a matter of a few
+keystrokes to install Camping. There&#8217;s also experimental builds if you want the
+latest features.</p>
+<p><a href="http://camping.rubyforge.org/book.html"><strong>The Camping Book:</strong></a> Completely new to Camping? The Camping Book will
+teach you all you need to know! It&#8217;s still a work in progress, but there&#8217;s
+plenty of content in order to get started.</p>
+<p><a href="http://wiki.github.com/camping/camping/rules-of-thumb"><strong>Rules of Thumb:</strong></a> A few best-practice tips for your Camping
+apps. You don&#8217;t have to follow them, but it often makes your app much more
+easier to write and maintain.</p>
+<p><a href="http://wiki.github.com/camping/camping/philosophy"><strong>Philosophy:</strong></a> When there&#8217;s already Rails, Sinatra, Ramaze, Merb
+and what-not, I guess you&#8217;re wondering what makes Camping so much different.
+The main difference is probably our philosophy, which is quite different than
+many other frameworks.</p>
+<p><a href="http://wiki.github.com/camping/camping/"><strong>The Camping Wiki</strong></a> The Camping Wiki contains a growing number of
+useful tips for Camping development.</p>
+<p><a href="http://camping.rubyforge.org/book/51_upgrading.html"><strong>Upgrading:</strong></a> Already have a Camping app running on 1.5 or 2.0?
+Don&#8217;t worry, by following these instructions, you should be able to upgrade
+in no time!</p>
+<h2 id="community">Community</h2>
+<p>Camping has a small, but helpful community and most issues are resolved quickly.
+Don&#8217;t be afraid to ask; there&#8217;s no point of trying to figure everything out by
+yourself when we might be able to answer it in a second. We also love to hear
+all about how <em>you</em> are using Camping, and maybe you can teach us few tricks
+you&#8217;ve discovered too.</p>
+<p>If you have any feature requests or suggestions on how we can improve Camping,
+don&#8217;t feel bad for throwing out suggestions without being able to contribute
+code. The ideas are just as important as the implementation, and Camping won&#8217;t
+get any further without your feedback. Tell the community what you want, and
+hopefully someone is able to help you.</p>
+<p><a href="http://rubyforge.org/mailman/listinfo/camping-list"><strong>Mailing List:</strong></a> The mailing list is the most central part of the
+Camping community and you should definitly join it right away. This is both
+where the main development of Camping happens, and where questions are answered
+quickly. (There&#8217;s also a <a href="searchable-mailing-low">searchable archive</a> if you&#8217;re
+looking for a specific message.)</p>
+<p><a href="http://java.freenode.net/?channel=camping"><strong>#camping @ irc.freenode.net:</strong></a> There&#8217;s also a few of us who are available
+at IRC so if you feel like chatting with us, this where you should be. Please
+hang around if no one answers you right away, and it&#8217;s also very helpful if you
+leave your email so we can get back to you when we&#8217;re available again.</p>
+<p><a href="http://github.com/camping/camping/issues"><strong>Issues:</strong></a> We also have a bug tracker where you can see all of the
+known (and resolved) bugs and feature requests at the moment. If you have a
+very specific problem, it might be a good idea to see if it&#8217;s been reported
+before. If not, you might open a new issue or maybe ask the the mailing list.</p>
+<p><a href="http://github.com/camping/camping"><strong>Source code:</strong></a> The source code of Camping is available freely under the
+MIT licence, which pretty much give you permission to do anything you want with
+it.</p>
+<p><a href="http://wiki.github.com/camping/camping/contributing"><strong>Contributing</strong></a> Interested in contributing to Camping, either
+by writing code, documentation or helping people? Everyone are welcome, and
+we&#8217;ll easily give you access to both the wiki, the repo, the homepage and
+pretty much <em>everything</em> if you want to help.</p>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+</body>
+</html>

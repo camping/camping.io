@@ -1,0 +1,278 @@
+/* Topstitch is a nonfree typefaces, donated to the project by Typodermic */
+/* Of note, this is only a subset of the full typeface. Further, EULA, and local laws in some areas,
+   do not permit you to install this typeface globally on your computer without your own license. */
+@font-face {
+	font-family: 'TopstitchRegular';
+	src: url('typefaces/topstitch-webfont.eot');
+	src: local('☺'), url('typefaces/topstitch-webfont.woff') format('woff'),
+	     url('typefaces/topstitch-webfont.ttf') format('truetype'),
+	     url('typefaces/topstitch-webfont.svg#webfont2bM2Nqpx') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Comic Zine is a freeware typeface by Blue Vinyl Fonts, grabbed from fontsquirrel.com */
+@font-face {
+	font-family: 'ComicZineOTRegular';
+	src: url('typefaces/comic_zine_ot-webfont.eot');
+	src: local('☺'), url('typefaces/comic_zine_ot-webfont.woff') format('woff'),
+	     url('typefaces/comic_zine_ot-webfont.ttf') format('truetype'),
+	     url('typefaces/comic_zine_ot-webfont.svg#webfontG86RhAdl') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Modded version of Comic Zine OT, modded by Jenna 'Bluebie' Fox, to just be the fills. */
+@font-face {
+	font-family: 'ComicZineOTColorFill';
+	src: url('comiczineotcolorfill-webfont.eot');
+	src: local('☺'), url('typefaces/comiczineotcolorfill-webfont.woff') format('woff'),
+	     url('typefaces/comiczineotcolorfill-webfont.ttf') format('truetype'),
+	     url('typefaces/comiczineotcolorfill-webfont.svg#webfonth7tyJalr') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+/*  background-color: #694;*/
+  color: #222;
+  font-family: Utopia, Georgia, Times, serif;
+  line-height: 1.6;
+}
+
+body {
+  background-color: #38261f;
+  background-image: url("img/soil.gif");
+  background-size: 180px 180px;
+  background-position: center top;
+}
+
+header {
+  background-color: #e5f3f4;
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 95px;
+  min-width: 660px;
+}
+
+header h1 {
+  padding-top: 30px;
+  margin-bottom: -28px;
+  font-weight: normal;
+  font-size: 40pt;
+}
+
+header h1.fill {
+  font-family: ComicZineOTColorFill; color: #ffcc66;
+  background-image: url("img/grass.png"), url("img/tipi.png"), url("img/army.png");
+  background-repeat: repeat-x, no-repeat, no-repeat;
+  background-position: center 75px, left 13px, right 27px;
+}
+
+header h1.outline { font-family: ComicZineOTRegular; color: black; position: absolute; width: 100%; top: 0; }
+
+#wrapper {
+  margin: 120px auto 80px auto;
+  width: 660px;
+}
+
+/* Modded paper texture provided by BittBox:
+   http://www.flickr.com/photos/bittbox/2691163311/sizes/o/in/photostream/ - CC-BY */
+#wrapper #subwrap {
+/*  background-color: rgb(251,250,243);*/
+  -webkit-border-image: url("img/paper.png") 75 30 50 30 stretch stretch;
+  -moz-border-image: url("img/paper.png") 75 30 50 30 stretch stretch;
+  border-image: url("img/paper.png") 75 30 50 30 stretch stretch;
+  border-width: 75px 30px 50px 30px;
+  position: relative;
+  width: 600px;
+  z-index: 100;
+}
+
+.aside {
+  clear: both;
+  float: left;
+  margin-left: -140px;
+  width: 150px;
+}
+
+#nav {
+  list-style-type: none;
+  text-align: left;
+  position: fixed !important;
+  position: absolute;
+  top: 12em;
+  z-index: 50;
+}
+
+#nav a {
+  color: #1336a8;
+  background-image: url("img/ribbon.png");
+  display: block;
+  font-weight: normal;
+  padding: 0 0.5em 0 1.5em;
+  font-family: TopstitchRegular;
+  font-size: 15pt;
+  text-decoration: none;
+  line-height: 35px;
+  vertical-align: middle;
+  text-shadow: 0.5px 1px 2px rgba(0,0,0, 0.5);
+}
+
+#nav li {
+  display: block;
+  height: 3em;
+}
+
+#nav .extra a {
+  background-color: #295d28;
+}
+
+/*#nav a:hover {
+  text-decoration: underline;
+}*/
+
+#nav a span {
+  float: left;
+}
+
+#home_box {
+  background-color: #694;
+  position: fixed !important;
+  position: absolute;
+  padding-top: 2em;
+  padding-bottom: 1em;
+  top: 0;
+  text-align: right;
+  z-index: 1;
+}
+
+p.date {
+  background-color: #dfa;
+  font-family: Baskerville, Georgia, "Times New Roman", serif;
+  float: left;
+  margin: 0;
+  margin-right: 1em;
+  padding: 0.4em 1em 0.3em;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+h2 {
+  border-bottom: solid 1px #BBB;
+/*  display: inline-block;
+  font-family: TopstitchRegular;
+  color: #8ba066;
+  font-size: 30px;
+  -webkit-border-image: url("img/purple-stitched-button.png") 27 166 34 36 round stretch;
+  border-width: 27px 166px 34px 36px;
+  padding: -20px -130px 0 0;
+  height: 33px;
+  font-weight: normal;
+  text-shadow: 0.5px 2px 3px rgba(0,0,0, 1), -0.5px -1px 1px rgba(255,255,255, 0.5);*/
+}
+
+h2.post-heading {
+  border: 0;
+  font-weight: normal;
+}
+
+h2 a {
+  color: #222;
+  text-decoration: none;
+}
+
+h2 a:hover {
+  text-decoration: underline;
+}
+
+h1, /*h2,*/ h3 {
+  margin-bottom: 0.5em;
+}
+
+p, pre {
+  margin-bottom: 1em;
+}
+
+a {
+  color: #00B;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+pre {
+  font-size: 1em;
+  padding: 1em;
+  color: #936;
+}
+
+.lefty { float: left }
+.center { text-align: center }
+
+.notice {
+  background-color: #F9F7ED;
+  border-top: 1px solid #983;
+  border-bottom: 1px solid #983;
+  padding: 0.5em 1em;
+}
+
+/* syntax highlighting */
+.keyword {
+    font-weight: bold;
+}
+.comment {
+    color: #555;
+}
+.string, .number {
+    color: #396;
+}
+.string {
+    background-color: #E9F5F5;
+}
+.regex {
+    background-color: #E9F1F5;
+    color: #435;
+}
+.ident {
+    color: #369;
+}
+.symbol {
+    color: #000;
+}
+.constant, .class, .module {
+    color: #630;
+    font-weight: bold;
+}
+
+/* Make it less wide for smaller width devices like iThings and DoomDroids */
+@media (max-width:940px), (max-height:530px) {
+  body #nav.aside {
+    margin: 1ex auto 1em auto;
+    text-align: center;
+    position: absolute !important;
+    left: 0; right: 0;
+    top: 8.5em;
+    z-index: 150;
+    width: auto;
+    min-width: 660px;
+  }
+
+  body #nav.aside * { display: inline; width: auto; }
+  body #nav a { background-color: #008000; background-image: none; color: white; padding: 0 0.5em; font-size: 25px; }
+  body #nav #home-button { display: none; }
+}

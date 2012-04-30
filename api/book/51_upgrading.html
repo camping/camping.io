@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Camping, a Microframework</title>
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+  <script src="../js/jquery.js" type="text/javascript"></script>
+  <script src="../js/camping.js" type="text/javascript"></script>
+</head>
+<body>
+  <div id="menu">
+    <ul id="links">
+      <li><a href="../index.html">front</a> | </li>
+      <li><a href="../book.html">ToC</a> | </li>
+      <li><a href="../api.html">reference</a> | </li>
+      <li><a href="http://wiki.github.com/camping/camping">wiki</a> | </li>
+      <li><a href="http://github.com/camping/camping">code</a></li>
+    </ul>
+    <p id="version">Camping 2.1.414</p>
+  </div>
+  
+  <div id="fullpage">
+    <div class="page_shade">
+    	<div class="page">
+    	  <p class="header">Thu Aug 19 16:07:44 +0200 2010</p>
+        <h1>Appendix I: Upgrade Notes</h1>
+<p>
+This document includes everything needed in order to <b>upgrade</b> your
+applications. If you&#8217;re looking for all the new features in a
+version, please have a look at the CHANGELOG in the <a
+href="../api.html#class-Camping">Camping</a> source.
+</p>
+<h2 class="ruled" id="from-20-to-21">From 2.0 to 2.1</h2>
+<h3>Options</h3>
+<p>
+In <a href="../api.html#class-Camping">Camping</a> 2.1 there is now a
+built-in way to store options and settings. If you use cookie session, it
+means that you&#8217;ll now have to change to:
+</p>
+<pre>
+  module Nuts
+    set :secret, &quot;Very secret text, which no-one else should know!&quot;
+    include Camping::Session
+  end
+</pre>
+<h2 class="ruled" id="from-15-to-20">From 1.5 to 2.0</h2>
+<h3>Rack</h3>
+<p>
+The biggest change in 2.0 is that it now uses <a
+href="http://rack.rubyforge.org/">Rack</a> internally. This means that
+you&#8217;ll now have to deploy <a
+href="../api.html#class-Camping">Camping</a> differently, but hopefully
+more easily too. Now every <a href="../api.html#class-Camping">Camping</a>
+application is also a Rack application, so simply check out the
+documentation to the server of your choice.
+</p>
+<h3>require &#8216;camping/db&#8216;</h3>
+<p>
+In earlier versions of <a href="../api.html#class-Camping">Camping</a>, you
+loaded database support by:
+</p>
+<pre>
+  require 'camping/db'
+</pre>
+<p>
+Actually, this loaded a very thin layer on top of ActiveRecord, and in the
+future we want to experiment with other libraries. Therefore you should now
+simply remove the line, and instead just inherit from Base right away. This
+also means you&#8217;ll have to place your migrations <b>after</b> the
+models.
+</p>
+<p>
+We also encourage you to use <tt>Model.table_name</tt> instead of
+<tt>:appname_model</tt>, just to make sure it&#8217;s named correctly.
+</p>
+<pre>
+  ## Don't require anything:
+  # require 'camping/db'
+
+  module Nuts::Models
+    ## Just inherit Base:
+    class Page &lt; Base; end
+
+    ## Migrations have to come *after* the models:
+    class CreateTheBasics &lt; V 0.1
+      def self.up
+        create_table Page.table_name do |t|
+          ...
+        end
+      end
+
+      def self.down
+        drop_table Page.table_name
+      end
+    end
+  end
+</pre>
+<h3>Cookie Sessions</h3>
+<p>
+<a href="../api.html#class-Camping">Camping</a> 2.0 now uses a cookie-based
+session system, which means you now longer need a database in order to use
+sessions. The disadvantage of this is that you are restricted to only
+around 4k of data. See below for the changes required, and see <a
+href="../api.html#class-Camping-Session">Camping::Session</a> more details.
+</p>
+<pre>
+  module Nuts
+    ## Include Camping::Session as before:
+    include Camping::Session
+
+    ## But also define a secret:
+    secret &quot;Very secret text, which no-one else should know!&quot;
+  end
+
+  def Nuts.create
+    ## And remove the following line:
+    # Camping::Models::Session.create_schema
+  end
+</pre>
+<h3>Error handling</h3>
+<p>
+<a href="../api.html#class-Camping">Camping</a> now uses three methods in
+order to handle errors. These replaces the old classes NotFound and
+ServerError.
+</p>
+<ul>
+<li><a href="../api.html#M000010">Camping::Base#r404</a> is called when a route
+can&#8217;t be found.
+
+</li>
+<li><a href="../api.html#M000012">Camping::Base#r501</a> is called when a route
+is found, but doesn&#8217;t respond to the method.
+
+</li>
+<li><a href="../api.html#M000011">Camping::Base#r500</a> is called when an
+error happens.
+
+</li>
+</ul>
+<p>
+You can override these in your application:
+</p>
+<pre>
+  module Nuts
+    def r404(path)
+      &quot;Sorry, but I can't find #{path}.&quot;
+    end
+
+    def r501(method)
+      &quot;Sorry, but I can't respond to #{method}.&quot;
+    end
+
+    def r500(klass, method, ex)
+      &quot;Sorry, but #{klass}##{method} failed with #{ex}.&quot;
+    end
+  end
+</pre>
+<p>
+It should be noted that this might change in the future.
+</p>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

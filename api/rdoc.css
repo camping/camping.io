@@ -115,3 +115,10 @@ pre.sourcecode { color: #DDDDDD; background-color: #775915; padding: 4px 8px; ma
 .cmt { color: #CCFFCC; font-style: italic }
 .str { color: #EECCCC; font-style: italic }
 .re  { color: #EECCCC; }
+
+#expand_all {
+  display: block;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}

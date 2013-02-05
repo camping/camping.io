@@ -5,7 +5,7 @@ $(function() {
       var base = $(name);
       return base.parent().add(base.next());
     }
-    
+
     // #class-something -> $(the section below)
     function s(name) {
       return $(name).next();
@@ -23,14 +23,14 @@ $(function() {
     }
     return false;
   });
-  
+
   if ($('.ref')[0]) {
-    
-    $('.mod').hide(); 
+
+    $('.mod').hide();
     $('.method').hide();
-    
+
     var hash = window.location.hash.replace(/--$/, '');
-    
+
     if (hash.substring(0, 2) == "#M") {
       // Show the method and the section
       m(hash).show();
@@ -41,12 +41,12 @@ $(function() {
       // Show the first section.
       s("h2:first").show();
     }
-    
+
     // We need to scroll!
     if (hash != window.location.hash) {
       window.location.hash = hash;
     }
-    
+
     $('a[href*="#class-"]').click(function() {
       var link = this.href;
       var id = link.substring(link.indexOf("#"));
@@ -60,7 +60,7 @@ $(function() {
         s(id).show();
       }
     });
-    
+
     $('a[href*="#M"]').click(function() {
       var link = this.href;
       var id = link.substring(link.indexOf("#"));
@@ -74,7 +74,11 @@ $(function() {
         m(id).show();
       }
     });
-    
   }
-  
+
+  // Expand all of the definitions
+  $('#expand_all').click(function(){
+    $('.mod,.method').show();
+    $(this).hide();
+  });
 });

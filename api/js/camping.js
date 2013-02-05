@@ -79,7 +79,6 @@ $(function() {
   // Expand all of the definitions
   $('#expand_all').click(function(){
     $('.mod,.method').show();
-    console.log("hello");
     $(this).hide();
   });
 });
